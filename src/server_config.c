@@ -4364,12 +4364,87 @@ nc_server_config_load_modules(struct ly_ctx **ctx)
     /* all features */
     const char *libnetconf2_netconf_server[] = {NULL};
 
+    /* Common models */
+    // Interfaces
+    const char *o_ran_ald_port[] = {NULL};
+    const char *o_ran_dhcp[] = {NULL};
+    const char *o_ran_ethernet_forwarding[] = {NULL};
+    const char *o_ran_externalio[] = {NULL};
+    const char *o_ran_interfaces[] = {NULL};
+    const char *o_ran_mplane_int[] = {NULL};
+    const char *o_ran_transceiver[] = {NULL};
+
+    // Opertaions
+    const char *o_ran_ald[] = {NULL};
+    const char *o_ran_file_management[] = {NULL};
+    const char *o_ran_operations[] = {NULL};
+    const char *o_ran_software_management[] = {NULL};
+    const char *o_ran_trace[] = {NULL};
+    const char *o_ran_troubleshooting[] = {NULL};
+
+    // Sync
+    const char *o_ran_sync[] = {NULL};
+
+    // System
+    const char *o_ran_certificates[] = {NULL};
+    const char *o_ran_fan[] = {NULL};
+    const char *o_ran_fm[] = {NULL};
+    const char *o_ran_hardware[] = {NULL};
+    const char *o_ran_supervision[] = {NULL};
+    const char *o_ran_usermgmt[] = {NULL};
+    const char *o_ran_ves_subscribed_notifications[] = {NULL};
+    const char *o_ran_wg4_features[] = {NULL};
+
+    /* Cross-WG Common Models */
+    const char *o_ran_common_identity_refs[] = {NULL};
+    const char *o_ran_common_yang_types[] = {NULL};
+
+    /* RU Specific Models */
+    // Interfaces
+    const char *o_ran_processing_element[] = {NULL};
+
+    // Operations
+    const char *o_ran_ecpri_delay[] = {NULL};
+    const char *o_ran_ieee802_dot1q_cfm[] = {NULL};
+    const char *o_ran_lbm[] = {NULL};
+    const char *o_ran_performance_management[] = {NULL};
+    const char *o_ran_udp_echo[] = {NULL};
+    const char *o_ran_uplane_conf[] = {NULL};
+    // Radio
+    const char *o_ran_antenna_calibration[] = {NULL};
+    const char *o_ran_beamforming[] = {NULL};
+    const char *o_ran_compression_factors[] = {NULL};
+    const char *o_ran_delay_management[] = {NULL};
+    const char *o_ran_frequency_band_measurement[] = {NULL};
+    const char *o_ran_laa_operations[] = {NULL};
+    const char *o_ran_laa[] = {NULL};
+    const char *o_ran_module_cap[] = {NULL};
+    const char *o_ran_shared_cell[] = {NULL};
+
+
     const char *module_names[] = {
         "ietf-netconf-server", "ietf-x509-cert-to-name", "ietf-crypto-types", "ietf-tcp-common", "ietf-tcp-server",
         "ietf-tcp-client", "ietf-ssh-common", "ietf-ssh-server", "iana-ssh-encryption-algs",
         "iana-ssh-key-exchange-algs", "iana-ssh-mac-algs", "iana-ssh-public-key-algs", "iana-crypt-hash",
         "ietf-keystore", "ietf-truststore", "ietf-tls-common", "ietf-tls-server", "iana-tls-cipher-suite-algs",
-        "libnetconf2-netconf-server", NULL
+        "libnetconf2-netconf-server", 
+
+        "o-ran-ald-port", "o-ran-dhcp", "o-ran-ethernet-forwarding", "o-ran-externalio", 
+        "o-ran-interfaces", "o-ran-mplane-int", "o-ran-transceiver", 
+        "o-ran-ald", "o-ran-file-management", "o-ran-operations", "o-ran-software-management", 
+        "o-ran-trace", "o-ran-troubleshooting",
+        "o-ran-sync",
+        "o-ran-certificates", "o-ran-fan", "o-ran-fm", "o-ran-hardware", "o-ran-supervision",
+        "o-ran-usermgmt", "o-ran-ves-subscribed-notifications", "o-ran-wg4-features",
+
+        "o-ran-common-identity-refs", "o-ran-common-yang-types", 
+
+        "o-ran-processing-element", 
+        "o-ran-ecpri-delay", "o-ran-ieee802-dot1q-cfm", "o-ran-lbm", "o-ran-performance-management", 
+        "o-ran-udp-echo", "o-ran-uplane-conf", 
+        "o-ran-antenna-calibration", "o-ran-beamforming", "o-ran-compression-factors", "o-ran-delay-management", 
+        "o-ran-frequency-band-measurement", "o-ran-laa-operations", "o-ran-laa", "o-ran-module-cap", "o-ran-shared-cell", 
+        NULL
     };
 
     const char **module_features[] = {
@@ -4377,7 +4452,22 @@ nc_server_config_load_modules(struct ly_ctx **ctx)
         ietf_tcp_server, ietf_tcp_client, ietf_ssh_common, ietf_ssh_server, iana_ssh_encryption_algs,
         iana_ssh_key_exchange_algs, iana_ssh_mac_algs, iana_ssh_public_key_algs, iana_crypt_hash,
         ietf_keystore, ietf_truststore, ietf_tls_common, ietf_tls_server, iana_tls_cipher_suite_algs,
-        libnetconf2_netconf_server, NULL
+        libnetconf2_netconf_server, 
+        
+        o_ran_ald_port, o_ran_dhcp, o_ran_ethernet_forwarding, o_ran_externalio, 
+        o_ran_interfaces, o_ran_mplane_int, o_ran_transceiver,
+        o_ran_ald, o_ran_file_management, o_ran_operations, o_ran_software_management, o_ran_trace, o_ran_troubleshooting,
+        o_ran_sync,
+        o_ran_certificates, o_ran_fan, o_ran_fm, o_ran_hardware, o_ran_supervision,
+        o_ran_usermgmt, o_ran_ves_subscribed_notifications, o_ran_wg4_features,
+
+        o_ran_common_identity_refs, o_ran_common_yang_types, 
+    
+        o_ran_processing_element,
+        o_ran_ecpri_delay, o_ran_ieee802_dot1q_cfm, o_ran_lbm, o_ran_performance_management, o_ran_udp_echo, o_ran_uplane_conf, 
+        o_ran_antenna_calibration, o_ran_beamforming, o_ran_compression_factors, o_ran_delay_management, o_ran_frequency_band_measurement, 
+        o_ran_laa_operations, o_ran_laa, o_ran_module_cap, o_ran_shared_cell,
+        NULL
     };
 
     for (i = 0; module_names[i] != NULL; i++) {

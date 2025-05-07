@@ -1,61 +1,5 @@
-# libnetconf2 – The NETCONF protocol library
+**libnetconf2 fork** 
 
-[![BSD license](https://img.shields.io/badge/License-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Build](https://github.com/CESNET/libnetconf2/workflows/libnetconf2%20CI/badge.svg)](https://github.com/CESNET/libnetconf2/actions?query=workflow%3A%22libnetconf2+CI%22)
-[![Docs](https://img.shields.io/badge/docs-link-blue)](https://netopeer.liberouter.org/doc/libnetconf2/)
-[![Coverity](https://scan.coverity.com/projects/7642/badge.svg)](https://scan.coverity.com/projects/7642)
-[![Codecov](https://codecov.io/gh/CESNET/libnetconf2/branch/master/graph/badge.svg?token=HpKeW36N9D)](https://codecov.io/gh/CESNET/libnetconf2)
-
-**libnetconf2** is a NETCONF library in C intended for building NETCONF clients
-and servers. NETCONF is the [NETwork CONFiguration protocol](http://trac.tools.ietf.org/wg/netconf/trac/wiki)
-introduced by IETF.
-
-**libnetconf2** is a NETCONF library in C handling NETCONF authentication and all NETCONF RPC communication both server
-and client-side. Note that NETCONF datastore implementation is not a part of this library. The library supports both
-NETCONF 1.0 ([RFC 4741](https://tools.ietf.org/html/rfc4741)) as well as NETCONF 1.1
-([RFC 6241](https://tools.ietf.org/html/rfc6241)). The main features include:
-
-* NETCONF over SSH ([RFC 4742](https://tools.ietf.org/html/rfc4742), [RFC 6242](https://tools.ietf.org/html/rfc6242)),
-  using [libssh](https://www.libssh.org/).
-* NETCONF over TLS ([RFC 7589](https://tools.ietf.org/html/rfc7589)), using [OpenSSL](https://www.openssl.org/).
-  * DNSSEC SSH Key Fingerprints ([RFC 4255](https://tools.ietf.org/html/rfc4255))
-* NETCONF over pre-established transport sessions (using this mechanism the communication can be tunneled through
-  sshd(8), for instance).
-* NETCONF Call Home ([RFC 8071](https://tools.ietf.org/html/rfc8071)).
-* NETCONF Event Notifications ([RFC 5277](https://tools.ietf.org/html/rfc5277)).
-* Compatibility with the [ietf-netconf-server](https://datatracker.ietf.org/doc/html/draft-ietf-netconf-netconf-client-server-29#name-the-ietf-netconf-server-mod) YANG module.
-
-**libnetconf2** is maintained and further developed by the [Tools for
-Monitoring and Configuration](https://www.liberouter.org/) department of
-[CESNET](http://www.ces.net/). Any testing or improving/fixing the library
-is welcome. Please inform us about your experiences with using **libnetconf2**
-via the [issue tracker](https://github.com/CESNET/libnetconf2/issues).
-
-Besides the [**libyang**](https://github.com/CESNET/libyang), **libnetconf2** is
-another basic building block for the [**Netopeer2** toolset](https://github.com/CESNET/Netopeer2).
-For a reference implementation of NETCONF client and server, check the
-**Netopeer2** project.
-
-## Branches
-
-The project uses 2 main branches `master` and `devel`. Other branches should not be cloned. In `master` there are files of the
-last official *release*. Any latest improvements and changes, which were tested at least briefly are found in `devel`. On every
-new *release*, `devel` is merged into `master`.
-
-This means that when only stable official releases are to be used, either `master` can be used or specific *releases* downloaded.
-If all the latest bugfixes should be applied, `devel` branch is the  one to be used. Note that whenever **a new issue is created**
-and it occurs on the `master` branch, the **first response will likely be** to use `devel` before any further provided support.
-
-## libnetconf vs libnetconf2
-
-**libnetconf2** was developed with experiences gained from the development
-of the [**libnetconf**](https://github.com/CESNET/libnetconf) library, which
-is now obsolete and should not be used.
-
-## Packages
-
-Binary RPM or DEB packages of the latest release can be built locally using `apkg`, look into `README` in
-the `distro` directory.
 
 ## Requirements
 
@@ -247,43 +191,39 @@ Tests can be run by the make's `test` target:
 $ make test
 ```
 
-## Supported YANG modules
+## O-RAN.WG4.TS.MP.0-R004-v17.00 defines O-RAN YANG models that import the following externally defined YANG models:
 
-### Server
-
-The *libnetconf2* NETCONF server has two APIs that load YANG modules into the context. The first API is [nc_server_init_ctx](https://netopeer.liberouter.org/doc/libnetconf2/master/html/group__server__functions.html#ga35cccf2dbe9204abe01ccb4b93db7438), which loads the following YANG modules with their features:
-
-- **ietf-netconf**: writable-running, candidate, rollback-on-error, validate, startup, url, xpath, confirmed-commit,
-- **ietf-netconf-monitoring**: no features.
-
-The second API is [nc_server_config_load_modules](https://netopeer.liberouter.org/doc/libnetconf2/master/html/group__server__config__functions.html#ga3760b87e3ab4309514e9ad82c4c09cdb). Supported features (marked by ✔) are loaded into the context by this API.
-
-- **iana-crypt-hash**: crypt-hash-md5 ✔, crypt-hash-sha-256 ✔, crypt-hash-sha-512 ✔,
-- **ietf-netconf-server**: ssh-listen ✔, tls-listen ✔, ssh-call-home ✔, tls-call-home ✔, central-netconf-server-supported ✔,
-- **iana-ssh-encryption-algs**: no features,
-- **iana-ssh-key-exchange-algs**: no features,
-- **iana-ssh-mac-algs**: no features,
-- **iana-ssh-public-key-algs**: no features,
-- **iana-tls-cipher-suite-algs**: no features,
-- **ietf-crypto-types**: cleartext-passwords ✔, cleartext-private-keys ✔, private-key-encryption ✘, csr-generation ✘, p10-csr-format ✘, certificate-expiration-notification **?**, encrypted-passwords ✘, hidden-symmetric-keys ✘, encrypted-symmetric-keys ✘, hidden-private-keys ✘, encrypted-private-keys ✘, one-symmetric-key-format ✘, one-asymmetric-key-format ✘, symmetrically-encrypted-value-format ✘, asymmetrically-encrypted-value-format ✘, cms-enveloped-data-format ✘, cms-encrypted-data-format ✘, cleartext-symmetric-keys ✘,
-- **ietf-keystore**: central-keystore-supported ✔, inline-definitions-supported ✔, asymmetric-keys ✔, symmetric-keys ✘,
-- **ietf-netconf-server**: ssh-listen ✔, tls-listen ✔, ssh-call-home ✔, tls-call-home ✔, central-netconf-server-supported ✔,
-- **ietf-ssh-common**: transport-params ✔, ssh-x509-certs ✘, public-key-generation ✘,
-- **ietf-ssh-server**: local-users-supported **?**, local-user-auth-publickey ✔, local-user-auth-password ✔, local-user-auth-none ✔, ssh-server-keepalives ✘, local-user-auth-hostbased ✘,
-- **ietf-tcp-client**: tcp-client-keepalives ✔, proxy-connect ✘, socks5-gss-api ✘, socks5-username-password ✘, local-binding-supported ✔,
-- **ietf-tcp-common**: transport-params ✔, ssh-x509-certs ✘, public-key-generation ✘,
-- **ietf-tcp-server**: tcp-server-keepalives ✔,
-- **ietf-tls-common**: tls10 ✔, tls11 ✔, tls12 ✔, tls13 ✔, hello-params ✔, public-key-generation ✘,
-- **ietf-tls-server**: server-ident-x509-cert ✔, client-auth-supported ✔, client-auth-x509-cert ✔, tls-server-keepalives ✘, server-ident-raw-public-key ✘, server-ident-tls12-psk ✘, server-ident-tls13-epsk ✘, client-auth-raw-public-key ✘, client-auth-tls12-psk ✘, client-auth-tls13-epsk ✘,
-- **ietf-truststore**: central-truststore-supported ✔, inline-definitions-supported ✔, certificates ✔, public-keys ✔,
-- **ietf-x509-cert-to-name**: no features,
-- **libnetconf2-netconf-server**: no features.
-
-The following features can be enabled/disabled to influence the behaviour of the `libnetconf2` NETCONF server:
-
-- `local-users-supported` - enabled by default, disable to change the behaviour of the SSH authentication (see the *libnetconf2* [documentation](https://netopeer.liberouter.org/doc/libnetconf2/master/html/howtoserver.html)).
-- `certificate-expiration-notification` - disabled by default, but certificate expiration notifications are supported and you can enable this feature to create such YANG data (see the *libnetconf2* documentation).
-
-### Client
-
-Currently no client specific YANG modules are supported.
+|YANG Module Name              |                Namespace                                | Revision Date
+|------------------------------|---------------------------------------------------------|---------------
+|iana-crypt-hash               |urn:ietf:params:xml:ns:yang:iana-crypt-hash              | 2014-08-06
+|iana-hardware                 |urn:ietf:params:xml:ns:yang:iana-hardware                | 2018-03-13
+|iana-if-type                  |urn:ietf:params:xml:ns:yang:iana-if-type                 | 2017-01-19
+|ieee802-dot1x                 |urn:ieee:std:802.1X:yang:ieee802-dot1x                   | 2020-02-18
+|ieee802-dot1x-types           |urn:ieee:std:802.1X:yang:ieee802-dot1x-types             | 2020-02-18
+|ieee802-dot1x-eapol           |urn:ieee:std:802.1X:yang:ieee802-dot1x-eapol             | 2022-05-25
+|ieee802-types                 |urn:ieee:std:802.1Q:yang:ieee802-types                   | 2020-06-04
+|ietf-crypto-types             |urn:ietf:params:xml:ns:yang:ietf-crypto-types            | 2024-10-10
+|ietf-datastores               |urn:ietf:params:xml:ns:yang:ietf-datastores              | 2018-02-14
+|ietf-dhcpv6-common            |urn:ietf:params:xml:ns:yang:ietf-dhcpv6-common           | 2021-01-29
+|ietf-dhcpv6-types             |urn:ietf:params:xml:ns:yang:ietf-dhcpv6-types            | 2018-09-04
+|ietf-hardware                 |urn:ietf:params:xml:ns:yang:ietf-hardware                | 2018-03-13
+|ietf-inet-types               |urn:ietf:params:xml:ns:yang:ietf-inet-types              | 2013-07-15
+|ietf-interfaces               |urn:ietf:params:xml:ns:yang:ietf-interfaces              | 2018-02-20
+|ietf-ip                       |urn:ietf:params:xml:ns:yang:ietf-ip                      | 2018-02-22
+|ietf-keystore                 |urn:ietf:params:xml:ns:yang:ietf-keystore                | 2024-10-10
+|ietf-netconf                  |urn:ietf:params:xml:ns:netconf:base:1.0                  | 2011-06-01
+|ietf-netconf-acm              |urn:ietf:params:xml:ns:yang:ietf-netconf-acm             | 2018-02-14
+|ietf-netconf-monitoring       |urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring      | 2010-10-04
+|ietf-netconf-notifications    |urn:ietf:params:xml:ns:yang:ietf-netconf-notifications   | 2012-02-06
+|ietf-network-instance         |urn:ietf:params:xml:ns:yang:ietf-network-instance        | 2019-01-21
+|ietf-restconf                 |urn:ietf:params:xml:ns:yang:ietf-restconf                | 2017-01-26
+|ietf-subscribed-notifications |urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications| 2019-09-09
+|ietf-system                   |urn:ietf:params:xml:ns:yang:ietf-system                  | 2014-08-06
+|ietf-truststore               |urn:ietf:params:xml:ns:yang:ietf-truststore              | 2024-10-10
+|ietf-yang-library             |urn:ietf:params:xml:ns:yang:ietf-yang-library            | 2019-01-04
+|ietf-yang-schema-mount        |urn:ietf:params:xml:ns:yang:ietf-yang-schema-mount       | 2019-01-14
+|ietf-yang-types               |urn:ietf:params:xml:ns:yang:ietf-yang-types              | 2013-07-15
+|ietf-x509-cert-to-name        |urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name       | 2014-12-10
+|ieee802-dot1q-cfm             |urn:ieee:std:802.1Q:yang:ieee802-dot1q-cfm               | 2022-01-19
+|ieee802-dot1q-cfm-types       |urn:ieee:std:802.1Q:yang:ieee802-dot1q-cfm-types         | 2020-06-04
+|ieee802-dot1q-types           |urn:ieee:std:802.1Q:yang:ieee802-dot1q-types             | 2020-06-04
